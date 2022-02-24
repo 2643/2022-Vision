@@ -3,7 +3,7 @@ import cv2 as cv
 import numpy as np
    
 # Create a VideoCapture object and read from input file
-#cap = cv.VideoCapture('Ball-Vision\Videos\Ball\MovingAround.mp4')
+#cap = cv.VideoCapture('Ball-Vision\Red\Videos\ShazWithBall.mp4')
 cap = cv.VideoCapture(1)
 
 # Check if camera opened successfully
@@ -26,7 +26,7 @@ while(cap.isOpened()):
     if key == ord('q'):
       break
     elif key == ord('p'):
-        cv.imwrite("Ball-Vision\Red\Photos\Halfway\Halfway ({}).jpg".format(i), frame)
+        cv.imwrite("Ball-Vision\Red\Photos\Sunlight\Sunlight ({}).jpg".format(i), frame)
         i = i + 1
 
    
