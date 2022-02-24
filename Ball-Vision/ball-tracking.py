@@ -21,7 +21,7 @@ while(True):
     # Thresholding the  image to keep only the blue pixels (close up)
     #captured_frame_hsv_blue = cv.inRange(captured_frame_hsv, np.array([102, 70, 58]), np.array([117,216,256]))
 
-    # Thresholding the  image to keep only the blue pixels (between first and third quarter)
+    # Thresholding the  image to keep only the blue pixels (halfway)
     #captured_frame_hsv_blue = cv.inRange(captured_frame_hsv, np.array([108, 100, 73]), np.array([118,218,252]))
 
     # Thresholding the  image to keep only the blue pixels (all distances)
