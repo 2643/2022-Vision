@@ -28,7 +28,7 @@ table = NetworkTables.getDefault().getTable('datatable')
 color = table.getEntry("color").getString("color is not found")
 if color == "Red":
     lower_range = [0, 86, 79]
-    upper_range = [[180,153,256]]
+    upper_range = [180,153,256]
     param = 0.7
 elif color == "Blue":
     lower_range = [102, 70, 55]
