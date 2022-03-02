@@ -28,7 +28,7 @@ table = NetworkTables.getDefault().getTable('datatable')
 color = table.getEntry("color").getString("color is not found")
 if color == "Red":
     lower_range = [0, 86, 79]
-    upper_range = [[180,153,256]]
+    upper_range = [180,153,256]
     param = 0.7
 elif color == "Blue":
     lower_range = [102, 70, 55]
@@ -70,7 +70,7 @@ while(True):
     captured_frame_hsv_red = cv.GaussianBlur(captured_frame_hsv_red, (5, 5), 2, 2)
     
     # Use the Hough transform to detect circles in the image
-    cv.imshow('hsv',captured_frame_hsv_red)
+    #cv.imshow('hsv',captured_frame_hsv_red)
     circles = cv.HoughCircles(captured_frame_hsv_red, cv.HOUGH_GRADIENT_ALT, 1, captured_frame_hsv_red.shape[0] / 8, param1=300, param2=param, minRadius=11, maxRadius=300)
 
 	# If we have extracted a circle, draw an outline
@@ -83,7 +83,7 @@ while(True):
         print(circles[0, 0])
 
     # Display the resulting frame, quit with q
-    cv.imshow('frame', output_frame)
+    #cv.imshow('frame', output_frame)
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
 
