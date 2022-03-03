@@ -24,10 +24,11 @@ with cond:
 #Test comment
 print("Connected!")
 
-table = NetworkTables.getDefault().getTable('datatable')
+table = NetworkTables.getDefault().getTable("datatable")
 
 color = table.getEntry("color").getString("color is not found")
-if color == "Red":
+print(color)
+''' if color == "Red":
     lower_range = [0, 86, 79]
     upper_range = [180,153,256]
     param = 0.7
@@ -90,5 +91,5 @@ while(True):
 
 # When everything done, release the capture
 cap.release()
-cv.destroyAllWindows()
+cv.destroyAllWindows() '''
 
