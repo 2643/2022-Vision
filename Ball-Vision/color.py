@@ -7,7 +7,7 @@ cond = threading.Condition()
 notified = [False]
 
 def connectionListener(connected, info):
-    print(info, '; Connected=%s' % connected)
+    #print(info, '; Connected=%s' % connected)
     with cond:
         notified[0] = True
         cond.notify()
@@ -16,19 +16,21 @@ NetworkTables.initialize(server='10.26.43.2')
 NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 
 with cond:
-    print("Waiting")
+   # print("Waiting")
     if not notified[0]:
         cond.wait()
 
 # Insert your processing code here
-#Test comment
-print("Connected!")
+#print("Connected!")
 
-table = NetworkTables.getDefault().getTable("datatable")
+#table = NetworkTables.getDefault().getTable("datatable")
 
-color = table.getEntry("color").getString("color is not found")
-print(color)
-''' if color == "Red":
+#color = table.getEntry("color").getString("color is not found")
+#print(color)
+
+color = "Blue"
+
+if color == "Red":
     lower_range = [0, 86, 79]
     upper_range = [180,153,256]
     param = 0.7
@@ -41,7 +43,7 @@ else:
     upper_range = [255,255,255]
 
 #cap = cv.VideoCapture('Ball-Vision\Red\Videos\ShazWithBall.mp4')
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture(1)
 
 while(True):
     # Capture frame-by-frame
@@ -72,7 +74,7 @@ while(True):
     captured_frame_hsv_red = cv.GaussianBlur(captured_frame_hsv_red, (5, 5), 2, 2)
     
     # Use the Hough transform to detect circles in the image
-    #cv.imshow('hsv',captured_frame_hsv_red)
+    cv.imshow('hsv',captured_frame_hsv_red)
     circles = cv.HoughCircles(captured_frame_hsv_red, cv.HOUGH_GRADIENT_ALT, 1, captured_frame_hsv_red.shape[0] / 8, param1=300, param2=param, minRadius=11, maxRadius=300)
 
 	# If we have extracted a circle, draw an outline
@@ -81,15 +83,17 @@ while(True):
         circles = np.round(circles[0, :]).astype("int")
         #print(circles[0,2])
         cv.circle(output_frame, center=(circles[0, 0], circles[0, 1]), radius=circles[0, 2], color=(0, 255, 0), thickness=2)
-        table.getEntry("center").setDouble(circles[0, 0])
+        #table.getEntry("center").setDouble(circles[0, 0])
+        #table.getEntry("center").setDouble(5.5)
         print(circles[0, 0])
 
     # Display the resulting frame, quit with q
-    #cv.imshow('frame', output_frame)
+    cv.imshow('frame', output_frame)
+    #table.getEntry("center").setDouble(5.5)
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
 
 # When everything done, release the capture
 cap.release()
-cv.destroyAllWindows() '''
+cv.destroyAllWindows() 
 
