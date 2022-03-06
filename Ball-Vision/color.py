@@ -3,7 +3,7 @@ from networktables import NetworkTables
 import cv2 as cv
 import numpy as np
 
-cond = threading.Condition()
+''' cond = threading.Condition()
 notified = [False]
 
 def connectionListener(connected, info):
@@ -23,12 +23,12 @@ with cond:
 # Insert your processing code here
 #print("Connected!")
 
-#table = NetworkTables.getDefault().getTable("datatable")
+table = NetworkTables.getDefault().getTable("datatable")
 
-#color = table.getEntry("color").getString("color is not found")
-#print(color)
+color = table.getEntry("color").getString("color is not found")
+print(color) '''
 
-color = "Blue"
+color = "Red"
 
 if color == "Red":
     lower_range = [0, 86, 79]
