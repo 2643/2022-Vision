@@ -1,4 +1,3 @@
-import threading
 from networktables import NetworkTables
 import cv2 as cv
 import numpy as np
@@ -44,7 +43,6 @@ else:
 
 #cap = cv.VideoCapture('Ball-Vision\Red\Videos\ShazWithBall.mp4')
 cap = cv.VideoCapture(1)
-
 while(True):
     # Capture frame-by-frame
     ret, captured_frame = cap.read()
@@ -56,16 +54,9 @@ while(True):
     # First blur to reduce noise prior to masking
     captured_frame_hsv = cv.medianBlur(captured_frame_hsv, 3)
 
-    # Thresholding the  image to keep only the red pixels (far away)
-    #captured_frame_hsv_red = cv.inRange(captured_frame_hsv, np.array([0, 117, 79]), np.array([5,176,233]))
 
-    # Thresholding the  image to keep only the red pixels (close up)
-    #captured_frame_hsv_red = cv.inRange(captured_frame_hsv, np.array([0, 86, 140]), np.array([6,175,256]))
 
-    # Thresholding the  image to keep only the red pixels (halfway)
-    #captured_frame_hsv_red = cv.inRange(captured_frame_hsv, np.array([0, 116, 102]), np.array([4,174,256]))
-
-    # Thresholding the  image to keep only the red pixels (all distances)
+    # Thresholding the  image to keep only the red/blue pixels (all distances)
     captured_frame_hsv_red = cv.inRange(captured_frame_hsv, np.array(lower_range), np.array(upper_range))
 
     # More blurs to reduce more noise, easier circle detection
@@ -73,10 +64,11 @@ while(True):
     captured_frame_hsv_red = cv.morphologyEx(captured_frame_hsv_red, cv.MORPH_CLOSE, np.ones((5,5),np.uint8))
     captured_frame_hsv_red = cv.GaussianBlur(captured_frame_hsv_red, (5, 5), 2, 2)
     
+    captured_frame_hsv_red = cv.line(captured_frame_hsv_red, (int(captured_frame_hsv_red.shape[1]/2), 0), (int(captured_frame_hsv_red.shape[1]/2), int(captured_frame_hsv_red.shape[0])), (255, 255, 255), 5)
+
     # Use the Hough transform to detect circles in the image
     cv.imshow('hsv',captured_frame_hsv_red)
     circles = cv.HoughCircles(captured_frame_hsv_red, cv.HOUGH_GRADIENT_ALT, 1, captured_frame_hsv_red.shape[0] / 8, param1=300, param2=param, minRadius=11, maxRadius=300)
-
 	# If we have extracted a circle, draw an outline
 	# We only need to detect one circle here, since there will only be one reference object
     if circles is not None:
