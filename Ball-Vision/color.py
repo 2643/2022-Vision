@@ -1,3 +1,4 @@
+from math import degrees
 from networktables import NetworkTables
 import cv2 as cv
 import numpy as np
@@ -19,6 +20,7 @@ with cond:
     if not notified[0]:
         cond.wait()
 
+return NetworkTables.getTable('vision-movement')
 # Insert your processing code here
 #print("Connected!")
 
@@ -32,7 +34,7 @@ color = "Red"
 if color == "Red":
     lower_range = [0, 86, 79]
     upper_range = [180,153,256]
-    param = 0.7
+    param = 0.85
 elif color == "Blue":
     lower_range = [102, 70, 55]
     upper_range = [117,208,256]
@@ -77,8 +79,19 @@ while(True):
         cv.circle(output_frame, center=(circles[0, 0], circles[0, 1]), radius=circles[0, 2], color=(0, 255, 0), thickness=2)
         #table.getEntry("center").setDouble(circles[0, 0])
         #table.getEntry("center").setDouble(5.5)
-        print(circles[0, 0])
+        Degrees = ((((output_frame.shape[1]//2)-circles[0, 0])*30)/320)
+        print(degrees)
+        #table.putNumber("degreeBallVision", degrees)
+        #print(output_frame.shape[1], " ", output_frame.shape[0])
 
+        #print(circles[0, 0])
+
+    topPixelsForCenterLine = [output_frame.shape[1]//2,0]
+    bottomPixelsForCenterLine = [output_frame.shape[1]//2, captured_frame_hsv_red.shape[0]]
+    colorForCenterLine = [0, 0, 0]
+
+    cv.line(output_frame, topPixelsForCenterLine, bottomPixelsForCenterLine, colorForCenterLine, thickness=10)
+    
     # Display the resulting frame, quit with q
     cv.imshow('frame', output_frame)
     #table.getEntry("center").setDouble(5.5)
